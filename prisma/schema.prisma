@@ -1,0 +1,47 @@
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Organisers {
+    id                 String        @id @default(auto()) @map("_id") @db.ObjectId
+    name               String
+    email              String        @unique
+    password           String
+    id_document        DocumentTypes
+    id_document_number String        @unique
+    phone              String        @unique
+    instagram_url      String        @unique
+    avatar_url         String?
+    reset_token        String?
+    events             Events[]
+    created_at         DateTime      @default(now())
+    updated_at         DateTime      @updatedAt
+}
+
+model Events {
+    id          String     @id @default(auto()) @map("_id") @db.ObjectId
+    title       String
+    description String
+    location    String
+    date        String
+    type        EventTypes
+    url         String
+    categories  String[]
+    organiser   Organisers @relation(fields: [organiserId], references: [id], onDelete: Cascade)
+    organiserId String     @db.ObjectId
+}
+
+enum DocumentTypes {
+    CPF
+    CNPJ
+}
+
+enum EventTypes {
+    Online
+    FaceToFace
+}
