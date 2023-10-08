@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import publicRoutes from "./routes/organisers.routes";
 
 const app = express();
 
@@ -10,10 +11,13 @@ app.use(
     credentials: true,
   }),
 );
+
 app.use(express.json());
 
-app.get("/", (__, res) => {
-  res.send("Back-end is running...");
+app.use(publicRoutes);
+
+app.get("/", (req, res) => {
+  res.send("API's Running");
 });
 
 export { app };

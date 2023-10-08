@@ -15,7 +15,7 @@ model Organisers {
     id_document        DocumentTypes
     id_document_number String        @unique
     phone              String        @unique
-    instagram_url      String        @unique
+    instagram_url      String?
     avatar_url         String?
     reset_token        String?
     events             Events[]
@@ -24,16 +24,19 @@ model Organisers {
 }
 
 model Events {
-    id          String     @id @default(auto()) @map("_id") @db.ObjectId
-    title       String
-    description String
-    location    String
-    date        String
-    type        EventTypes
-    url         String
-    categories  String[]
-    organiser   Organisers @relation(fields: [organiserId], references: [id], onDelete: Cascade)
-    organiserId String     @db.ObjectId
+    id            String     @id @default(auto()) @map("_id") @db.ObjectId
+    code          String     @unique
+    title         String
+    description   String
+    location      String?
+    start_date    DateTime
+    end_date      DateTime?
+    purchase_link String?
+    type          EventTypes
+    url           String?
+    categories    String[]
+    organiser     Organisers @relation(fields: [organiserId], references: [id], onDelete: Cascade)
+    organiserId   String     @db.ObjectId
 }
 
 enum DocumentTypes {
