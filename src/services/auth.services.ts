@@ -5,7 +5,7 @@ import { authConf } from "../config/auth.config";
 
 export const LoginService = async (email: string, password: string) => {
   try {
-    const organiser = await prisma.organisers.findFirstOrThrow({ where: { email } });
+    const organiser = await prisma.organisers.findFirst({ where: { email } });
     if (!organiser) {
       throw new Error("Conta de organizador não encontrada!");
     }

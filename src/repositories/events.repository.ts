@@ -2,48 +2,76 @@ import prisma from "../services/prisma.services";
 import { IEvent, IRequestEventBody } from "../types/events.body.typs";
 
 export const CreateEventsRepo = (body: IEvent) => {
-  return prisma.events.create({ data: body });
+  try {
+    return prisma.events.create({ data: body });
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
 };
 
 export const ReadEventsByOrganiser = (organiserID: string) => {
-  return prisma.events.findMany({
-    where: {
-      organiserId: organiserID,
-    },
-  });
+  try {
+    return prisma.events.findMany({
+      where: {
+        organiserId: organiserID,
+      },
+    });
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
 };
 
 export const ReadEventByID = (id: string) => {
-  return prisma.events.findUnique({
-    where: { id },
-  });
+  try {
+    return prisma.events.findUnique({
+      where: { id },
+    });
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
 };
 
 export const ReadEvents = () => {
-  return prisma.events.findMany();
+  try {
+    return prisma.events.findMany();
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
 };
 
 export const ReadEventsByCategories = async (categories: string[]) => {
-  return prisma.events.findMany({
-    where: {
-      categories: {
-        hasSome: categories,
+  try {
+    return prisma.events.findMany({
+      where: {
+        categories: {
+          hasSome: categories,
+        },
       },
-    },
-  });
+    });
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
 };
 
 export const UpdateEvent = (body: IRequestEventBody, id: string) => {
-  return prisma.events.update({
-    where: { id },
-    data: body,
-  });
+  try {
+    return prisma.events.update({
+      where: { id },
+      data: body,
+    });
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
 };
 
 export const DeleteEvent = (id: string) => {
-  return prisma.events.delete({
-    where: {
-      id: id,
-    },
-  });
+  try {
+    return prisma.events.delete({
+      where: {
+        id: id,
+      },
+    });
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
 };

@@ -1,10 +1,11 @@
-import { Prisma } from "@prisma/client";
+
 import { IRequestOrganiserBody, IOrganiser } from "../types/organiser.body.types";
 import { CreateOrganisersRepo, ReadOrganisers, ReadOrganiserByID, UpdateOrganiser, DeleteOrganiser, ForgotPassword, ResetPassword } from "../repositories/organisers.repository";
 import { ReadOrganiserByDocNumber, ReadOrganiserByEmail, ReadOrganiserByPhone } from "../repositories/utils.repository";
 import { sign } from "jsonwebtoken";
 import { authConf } from "../config/auth.config";
 import bcrypt from "bcryptjs";
+import { Prisma } from "@prisma/client";
 
 export const CreateOrganiserService = (body: IOrganiser) => {
   try {
