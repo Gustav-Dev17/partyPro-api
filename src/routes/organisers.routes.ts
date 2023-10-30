@@ -18,6 +18,6 @@ route.get("/getOrganisers", GetOrganisers);
 
 route.patch("/updateOrganiser", Validate(OrganiserUpdateSchema), AuthMiddleware, UpdateOrganiser);
 
-route.delete("/deleteOrganiser", DeleteOrganiser);
+route.delete("/deleteOrganiser", AuthMiddleware, DeleteOrganiser);
 
 export default route;
