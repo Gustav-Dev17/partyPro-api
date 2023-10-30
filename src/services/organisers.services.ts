@@ -87,12 +87,12 @@ export const DeleteOrganiserService = async (id: string, password: string) => {
   try {
     const organiser = await ReadOrganiserByID(id);
 
-    if (!password || password.length > 9) {
-      throw new Error("Uma senha válida deve ser informada!");
-    }
+    if (organiser) {
+      const matchPassword = await bcrypt.compare(password, organiser.password);
 
-    if (organiser?.password != password) {
-      throw new Error("A senha informada está incorreta!");
+      if (!matchPassword) {
+        throw new Error("A senha informada está incorreta!");
+      }
     }
 
     return DeleteOrganiser(id);
