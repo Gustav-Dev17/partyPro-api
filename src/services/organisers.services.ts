@@ -1,4 +1,3 @@
-
 import { IRequestOrganiserBody, IOrganiser } from "../types/organiser.body.types";
 import { CreateOrganisersRepo, ReadOrganisers, ReadOrganiserByID, UpdateOrganiser, DeleteOrganiser, ForgotPassword, ResetPassword } from "../repositories/organisers.repository";
 import { ReadOrganiserByDocNumber, ReadOrganiserByEmail, ReadOrganiserByPhone } from "../repositories/utils.repository";
@@ -84,8 +83,18 @@ export const UpdateOrganiserService = async (body: IRequestOrganiserBody, id: st
   }
 };
 
-export const DeleteOrganiserService = (id: string) => {
+export const DeleteOrganiserService = async (id: string, password: string) => {
   try {
+    const organiser = await ReadOrganiserByID(id);
+
+    if (!password || password.length > 9) {
+      throw new Error("Uma senha válida deve ser informada!");
+    }
+
+    if (organiser?.password != password) {
+      throw new Error("A senha informada está incorreta!");
+    }
+
     return DeleteOrganiser(id);
   } catch (e) {
     throw new Error((e as Error).message);

@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { CreateOrganiserService, DeleteOrganiserService, ListOrganiserService, ListOrganisersService, UpdateOrganiserService } from "../services/organisers.services";
 
-export const CreateOrganiser = async (req: Request, res: Response) => { 
+export const CreateOrganiser = async (req: Request, res: Response) => {
   try {
     await CreateOrganiserService(req.body);
     return res.status(201).json({ message: "Conta criada com sucesso!" });
@@ -43,7 +43,8 @@ export const UpdateOrganiser = async (req: Request, res: Response) => {
 export const DeleteOrganiser = async (req: Request, res: Response) => {
   try {
     const { id } = req;
-    await DeleteOrganiserService(id);
+    await DeleteOrganiserService(id, req.body.password);
+
     return res.status(204).json({ message: "Conta excluída com sucesso!" });
   } catch (e) {
     return res.status(400).json({ message: (e as Error).message });
