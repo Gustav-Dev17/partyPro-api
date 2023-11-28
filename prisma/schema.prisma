@@ -37,6 +37,13 @@ model Events {
     categories    String[]
     organiser     Organisers @relation(fields: [organiserId], references: [id], onDelete: Cascade)
     organiserId   String     @db.ObjectId
+    created_at    DateTime   @default(now())
+    updated_at    DateTime   @updatedAt
+}
+
+model Categories {
+    id   String @id @default(auto()) @map("_id") @db.ObjectId
+    name String
 }
 
 enum DocumentTypes {
@@ -47,4 +54,5 @@ enum DocumentTypes {
 enum EventTypes {
     Online
     FaceToFace
+    Hybrid
 }

@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "main": "index.js",
   "author": "Gustav OL <70300539+Gustav-Dev17@users.noreply.github.com>",
-   "license": "MIT",
-    "engines": {
-        "node": "18"
-    },
-    "scripts": {
+  "license": "MIT",
+  "engines": {
+    "node": "18"
+  },
+  "scripts": {
     "prepare": "npx prisma generate",
     "build": "yarn && tsc",
     "start": "node dist/server.js",

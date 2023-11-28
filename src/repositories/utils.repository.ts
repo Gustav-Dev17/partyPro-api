@@ -23,3 +23,7 @@ export const ReadOrganiserByPhone = (phone: string) => {
     },
   });
 };
+
+export const ReadCategoriesRepo = () => {
+  return prisma.categories.findMany();
+};

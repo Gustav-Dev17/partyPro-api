@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
-import publicRoutes from "./routes/organisers.routes";
+import orgRoutes from "./routes/organisers.routes";
+import adminRoutes from "./routes/admin.routes";
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.use(
 
 app.use(express.json());
 
-app.use(publicRoutes);
+app.use(orgRoutes, adminRoutes);
 
 app.get("/", (req, res) => {
   res.send("API's Running");
